@@ -58,8 +58,8 @@ const DataConsolidation: React.FC<{ currentUser: User }> = ({ currentUser }) => 
         const result: string[] = [];
         let current = '';
         let inQuote = false;
-        // Handle comma as separator
         const separator = ',';
+
         for (let i = 0; i < line.length; i++) {
             const char = line[i];
             if (char === '"') {
@@ -90,7 +90,7 @@ const DataConsolidation: React.FC<{ currentUser: User }> = ({ currentUser }) => 
             const entry: PartialEquipment = {};
 
             header.forEach((colName, index) => {
-                const normalizedColName = colName.replace(/[\s\/]+/g, '').toUpperCase();
+                const normalizedColName = colName.replace(/[\s/]+/g, '').toUpperCase();
                 const mappedKey = mappings[normalizedColName] || mappings[colName.toUpperCase()];
                 if (mappedKey && index < values.length) {
                     (entry as any)[mappedKey] = values[index]?.trim() || '';
@@ -279,8 +279,7 @@ const DataConsolidation: React.FC<{ currentUser: User }> = ({ currentUser }) => 
                                             <td key={header} className="px-6 py-4 whitespace-nowrap">{item[header] || 'N/A'}</td>
                                         ))}
                                     </tr>
-                                ))}
-                            </tbody>
+                                </tbody>
                         </table>
                     </div>
                      <div className="mt-6 flex justify-end">
