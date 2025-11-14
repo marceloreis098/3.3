@@ -69,7 +69,7 @@ const runMigrations = async () => {
                     realName VARCHAR(255) NOT NULL,
                     email VARCHAR(255) NOT NULL UNIQUE,
                     password VARCHAR(255) NOT NULL,
-                    role ENUM('Admin', 'User Manager', 'User') NOT NULL,
+                    role ENUM('Administrador', 'Gerente de Usuários', 'Usuário') NOT NULL,
                     lastLogin DATETIME,
                     is2FAEnabled BOOLEAN DEFAULT FALSE,
                     twoFASecret VARCHAR(255),
@@ -161,7 +161,7 @@ const runMigrations = async () => {
                 );`
             },
             {
-                id: 7, sql: `INSERT IGNORE INTO users (username, realName, email, password, role) VALUES ('admin', 'Admin', 'admin@example.com', '${bcrypt.hashSync("marceloadmin", SALT_ROUNDS)}', 'Admin');`
+                id: 7, sql: `INSERT IGNORE INTO users (username, realName, email, password, role) VALUES ('admin', 'Admin', 'admin@example.com', '${bcrypt.hashSync("marceloadmin", SALT_ROUNDS)}', 'Administrador');`
             },
             {
                 id: 8, sql: `
@@ -294,7 +294,7 @@ const isAdmin = async (req, res, next) => {
 
     try {
         const [rows] = await db.promise().query('SELECT role FROM users WHERE username = ?', [username]);
-        if (rows.length === 0 || rows[0].role !== 'Admin') {
+        if (rows.length === 0 || rows[0].role !== 'Administrador') {
             return res.status(403).json({ message: "Access denied. Admin privileges required." });
         }
         req.userRole = rows[0].role;
@@ -447,7 +447,7 @@ app.get('/api/equipment', (req, res) => {
     let sql = "SELECT * FROM equipment ORDER BY equipamento ASC";
     let params = [];
 
-    if (role !== 'Admin' && role !== 'User Manager') {
+    if (role !== 'Administrador' && role !== 'Gerente de Usuários') {
         sql = `
             SELECT * FROM equipment 
             WHERE approval_status = 'approved' OR (created_by_id = ? AND approval_status != 'approved')
@@ -486,7 +486,7 @@ app.post('/api/equipment', async (req, res) => {
         }
 
         newEquipment.created_by_id = user.id;
-        newEquipment.approval_status = user.role === 'Admin' ? 'approved' : 'pending_approval';
+        newEquipment.approval_status = user.role === 'Administrador' ? 'approved' : 'pending_approval';
         
         const sql = "INSERT INTO equipment SET ?";
         const [result] = await db.promise().query(sql, newEquipment);
@@ -660,7 +660,7 @@ app.get('/api/licenses', (req, res) => {
     let sql = "SELECT * FROM licenses ORDER BY produto, usuario ASC";
     let params = [];
 
-    if (role !== 'Admin') {
+    if (role !== 'Administrador') {
         sql = `
             SELECT * FROM licenses 
             WHERE approval_status = 'approved' OR (created_by_id = ? AND approval_status != 'approved')
@@ -685,7 +685,7 @@ app.post('/api/licenses', async (req, res) => {
         const user = userRows[0];
         
         newLicense.created_by_id = user.id;
-        newLicense.approval_status = user.role === 'Admin' ? 'approved' : 'pending_approval';
+        newLicense.approval_status = user.role === 'Administrador' ? 'approved' : 'pending_approval';
 
         const sql = "INSERT INTO licenses SET ?";
         const [result] = await db.promise().query(sql, newLicense);

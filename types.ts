@@ -3,9 +3,9 @@
 export type Page = 'Dashboard' | 'Inventário de Equipamentos' | 'Controle de Licenças' | 'Usuários e Permissões' | 'Configurações' | 'Auditoria';
 
 export enum UserRole {
-    Admin = 'Admin',
-    UserManager = 'User Manager',
-    User = 'User'
+    Admin = 'Administrador',
+    UserManager = 'Gerente de Usuários',
+    User = 'Usuário'
 }
 
 export interface User {
@@ -55,7 +55,7 @@ export interface Equipment {
     pais?: string;
     cidade?: string;
     estadoProvincia?: string;
-    condicaoTermo?: 'Assinado - Entrega' | 'Assinado - Devolução' | 'Pendente' | 'N/A';
+    condicaoTermo?: 'Assinado - Entrega' | 'Assinado - Devolução' | 'Pendente' | 'Não Aplicável';
 }
 
 export interface License {

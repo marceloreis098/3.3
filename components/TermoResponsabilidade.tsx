@@ -45,13 +45,13 @@ const TermoResponsabilidade: React.FC<TermoProps> = ({ equipment, user, onClose,
         
         return template
             .replace(/{{USUARIO}}/g, collaboratorName)
-            .replace(/{{EQUIPAMENTO}}/g, equipment.equipamento || 'N/A')
-            .replace(/{{SERIAL}}/g, equipment.serial || 'N/A')
-            .replace(/{{PATRIMONIO}}/g, equipment.patrimonio || 'N/A')
+            .replace(/{{EQUIPAMENTO}}/g, equipment.equipamento || 'Não Aplicável')
+            .replace(/{{SERIAL}}/g, equipment.serial || 'Não Aplicável')
+            .replace(/{{PATRIMONIO}}/g, equipment.patrimonio || 'Não Aplicável')
             .replace(/{{EMPRESA}}/g, companyName)
             .replace(/{{DATA}}/g, today)
-            .replace(/{{DATA_ENTREGA}}/g, equipment.dataEntregaUsuario ? new Date(equipment.dataEntregaUsuario).toLocaleDateString('pt-BR') : 'N/A')
-            .replace(/{{DATA_DEVOLUCAO}}/g, equipment.dataDevolucao ? new Date(equipment.dataDevolucao).toLocaleDateString('pt-BR') : 'N/A');
+            .replace(/{{DATA_ENTREGA}}/g, equipment.dataEntregaUsuario ? new Date(equipment.dataEntregaUsuario).toLocaleDateString('pt-BR') : 'Não Aplicável')
+            .replace(/{{DATA_DEVOLUCAO}}/g, equipment.dataDevolucao ? new Date(equipment.dataDevolucao).toLocaleDateString('pt-BR') : 'Não Aplicável');
     }, [template, equipment, collaboratorName, companyName]);
 
     const title = termoType === 'devolucao' ? "Termo de Devolução de Equipamento" : "Termo de Responsabilidade";

@@ -279,8 +279,7 @@ const DataConsolidation: React.FC<{ currentUser: User }> = ({ currentUser }) => 
                                             <td key={header} className="px-6 py-4 whitespace-nowrap">{item[header] || 'N/A'}</td>
                                         ))}
                                     </tr>
-                                ))}
-                            </tbody>
+                                </tbody>
                         </table>
                     </div>
                      <div className="mt-6 flex justify-end">

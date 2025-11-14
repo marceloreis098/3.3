@@ -9,8 +9,8 @@ import PeriodicUpdate from './PeriodicUpdate'; // Importar o novo componente
 
 // FIX: Added the missing TermoStatusBadge component definition to resolve 'Cannot find name' errors.
 const TermoStatusBadge: React.FC<{ condicao?: Equipment['condicaoTermo'] }> = ({ condicao }) => {
-    if (!condicao || condicao === 'N/A') {
-        return <span className="text-xs font-medium text-gray-500">N/A</span>;
+    if (!condicao || condicao === 'Não Aplicável') {
+        return <span className="text-xs font-medium text-gray-500">Não Aplicável</span>;
     }
 
     const statusMap = {
@@ -63,7 +63,7 @@ const EquipmentFormModal: React.FC<{
         brand: '', model: '', observacoes: '', emailColaborador: '',
         // Novos campos
         identificador: '', nomeSO: '', memoriaFisicaTotal: '', grupoPoliticas: '',
-        pais: '', cidade: '', estadoProvincia: '', condicaoTermo: 'N/A'
+        pais: '', cidade: '', estadoProvincia: '', condicaoTermo: 'Não Aplicável'
     });
     const [isSaving, setIsSaving] = useState(false);
     const [saveError, setSaveError] = useState('');
@@ -100,7 +100,7 @@ const EquipmentFormModal: React.FC<{
                 pais: equipment.pais || '',
                 cidade: equipment.cidade || '',
                 estadoProvincia: equipment.estadoProvincia || '',
-                condicaoTermo: equipment.condicaoTermo || 'N/A'
+                condicaoTermo: equipment.condicaoTermo || 'Não Aplicável'
             };
             setFormData(initialData);
         }
@@ -212,8 +212,8 @@ const EquipmentFormModal: React.FC<{
 
                     <div className="sm:col-span-1">
                         <label className="block text-sm font-medium text-gray-700 dark:text-dark-text-secondary">Condição do Termo</label>
-                        <select name="condicaoTermo" value={formData.condicaoTermo || 'N/A'} onChange={handleChange} className="w-full mt-1 p-2 border dark:border-dark-border rounded-md bg-white dark:bg-gray-800">
-                            <option value="N/A">N/A</option>
+                        <select name="condicaoTermo" value={formData.condicaoTermo || 'Não Aplicável'} onChange={handleChange} className="w-full mt-1 p-2 border dark:border-dark-border rounded-md bg-white dark:bg-gray-800">
+                            <option value="Não Aplicável">Não Aplicável</option>
                             <option value="Pendente">Pendente</option>
                             <option value="Assinado - Entrega">Assinado - Entrega</option>
                             <option value="Assinado - Devolução">Assinado - Devolução</option>
@@ -282,7 +282,7 @@ const EquipmentFormModal: React.FC<{
 
 const LinkableField: React.FC<{ label: string; value?: string }> = ({ label, value }) => {
     if (!value || value.trim() === '') {
-        return <div><strong>{label}:</strong> N/A</div>;
+        return <div><strong>{label}:</strong> Não Aplicável</div>;
     }
 
     const isUrl = value.startsWith('http://') || value.startsWith('https://') || value.startsWith('www.');
@@ -374,21 +374,21 @@ const EquipmentDetailModal: React.FC<{
                              <StatusBadgeDetail status={equipment.approval_status} reason={equipment.rejection_reason} />
                         </div>
 
-                        <div><strong>Patrimônio:</strong> {equipment.patrimonio || 'N/A'}</div>
-                        <div><strong>Serial:</strong> {equipment.serial || 'N/A'}</div>
-                        <div><strong>Tipo:</strong> {equipment.tipo || 'N/A'}</div>
-                        <div><strong>Garantia:</strong> {equipment.garantia || 'N/A'}</div>
-                        <div><strong>Status:</strong> {equipment.status || 'N/A'}</div>
+                        <div><strong>Patrimônio:</strong> {equipment.patrimonio || 'Não Aplicável'}</div>
+                        <div><strong>Serial:</strong> {equipment.serial || 'Não Aplicável'}</div>
+                        <div><strong>Tipo:</strong> {equipment.tipo || 'Não Aplicável'}</div>
+                        <div><strong>Garantia:</strong> {equipment.garantia || 'Não Aplicável'}</div>
+                        <div><strong>Status:</strong> {equipment.status || 'Não Aplicável'}</div>
                         
                         <div className="md:col-span-2 border-t dark:border-dark-border pt-4 mt-4">
                             <h5 className="font-semibold text-brand-dark dark:text-dark-text-primary mb-2">Atribuição:</h5>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6">
-                                <div><strong>Usuário Atual:</strong> {equipment.usuarioAtual || 'N/A'}</div>
-                                <div><strong>Email Colaborador:</strong> {equipment.emailColaborador || 'N/A'}</div>
-                                <div><strong>Local:</strong> {equipment.local || 'N/A'}</div>
-                                <div><strong>Setor:</strong> {equipment.setor || 'N/A'}</div>
-                                <div><strong>Data Entrega:</strong> {equipment.dataEntregaUsuario || 'N/A'}</div>
-                                <div><strong>Data Devolução:</strong> {equipment.dataDevolucao || 'N/A'}</div>
+                                <div><strong>Usuário Atual:</strong> {equipment.usuarioAtual || 'Não Aplicável'}</div>
+                                <div><strong>Email Colaborador:</strong> {equipment.emailColaborador || 'Não Aplicável'}</div>
+                                <div><strong>Local:</strong> {equipment.local || 'Não Aplicável'}</div>
+                                <div><strong>Setor:</strong> {equipment.setor || 'Não Aplicável'}</div>
+                                <div><strong>Data Entrega:</strong> {equipment.dataEntregaUsuario || 'Não Aplicável'}</div>
+                                <div><strong>Data Devolução:</strong> {equipment.dataDevolucao || 'Não Aplicável'}</div>
                                 <div className="sm:col-span-2"><strong>Condição do Termo:</strong> <TermoStatusBadge condicao={equipment.condicaoTermo} /></div>
                             </div>
                         </div>
@@ -396,13 +396,13 @@ const EquipmentDetailModal: React.FC<{
                         <div className="md:col-span-2 border-t dark:border-dark-border pt-4 mt-4">
                             <h5 className="font-semibold text-brand-dark dark:text-dark-text-primary mb-2">Detalhes Técnicos:</h5>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-6">
-                                <div><strong>Identificador:</strong> {equipment.identificador || 'N/A'}</div>
-                                <div><strong>Sistema Operacional:</strong> {equipment.nomeSO || 'N/A'}</div>
-                                <div><strong>Memória Física Total:</strong> {equipment.memoriaFisicaTotal || 'N/A'}</div>
-                                <div><strong>Grupo de Políticas:</strong> {equipment.grupoPoliticas || 'N/A'}</div>
-                                <div><strong>País:</strong> {equipment.pais || 'N/A'}</div>
-                                <div><strong>Estado/Província:</strong> {equipment.estadoProvincia || 'N/A'}</div>
-                                <div><strong>Cidade:</strong> {equipment.cidade || 'N/A'}</div>
+                                <div><strong>Identificador:</strong> {equipment.identificador || 'Não Aplicável'}</div>
+                                <div><strong>Sistema Operacional:</strong> {equipment.nomeSO || 'Não Aplicável'}</div>
+                                <div><strong>Memória Física Total:</strong> {equipment.memoriaFisicaTotal || 'Não Aplicável'}</div>
+                                <div><strong>Grupo de Políticas:</strong> {equipment.grupoPoliticas || 'Não Aplicável'}</div>
+                                <div><strong>País:</strong> {equipment.pais || 'Não Aplicável'}</div>
+                                <div><strong>Estado/Província:</strong> {equipment.estadoProvincia || 'Não Aplicável'}</div>
+                                <div><strong>Cidade:</strong> {equipment.cidade || 'Não Aplicável'}</div>
                             </div>
                         </div>
 
@@ -506,7 +506,7 @@ const EquipmentHistoryModal: React.FC<{ equipmentId: number; onClose: () => void
                                     <p className="text-sm font-semibold text-brand-dark dark:text-dark-text-primary">{new Date(entry.timestamp).toLocaleString()}</p>
                                     <p className="text-xs text-gray-600 dark:text-dark-text-secondary">Por: {entry.changedBy}</p>
                                     <p className="text-sm mt-1">
-                                        Campo: <strong className="capitalize">{entry.changeType.replace(/([A-Z])/g, ' $1')}</strong> mudou de "{entry.from_value || 'N/A'}" para "{entry.to_value || 'N/A'}"
+                                        Campo: <strong className="capitalize">{entry.changeType.replace(/([A-Z])/g, ' $1')}</strong> mudou de "{entry.from_value || 'Não Aplicável'}" para "{entry.to_value || 'Não Aplicável'}"
                                     </p>
                                 </div>
                             ))}
@@ -943,7 +943,7 @@ const EquipmentList: React.FC<EquipmentListProps> = ({ currentUser, companyName 
                                     <StatusBadge status={item.approval_status} reason={item.rejection_reason} />
                                 </div>
                                 <p className="text-sm text-gray-500 dark:text-dark-text-secondary"><strong>Serial:</strong> {item.serial}</p>
-                                <p className="text-sm text-gray-500 dark:text-dark-text-secondary"><strong>Usuário:</strong> {item.usuarioAtual || 'N/A'}</p>
+                                <p className="text-sm text-gray-500 dark:text-dark-text-secondary"><strong>Usuário:</strong> {item.usuarioAtual || 'Não Aplicável'}</p>
                                 <p className="text-sm text-gray-500 dark:text-dark-text-secondary"><strong>Status:</strong> {item.status}</p>
                                 <p className="text-sm text-gray-500 dark:text-dark-text-secondary"><strong>Termo:</strong> <TermoStatusBadge condicao={item.condicaoTermo} /></p>
                                 <div className="flex justify-end pt-2">
@@ -975,11 +975,11 @@ const EquipmentList: React.FC<EquipmentListProps> = ({ currentUser, companyName 
                                             {item.equipamento} <StatusBadge status={item.approval_status} reason={item.rejection_reason} />
                                         </td>
                                         <td className="px-6 py-4">{item.serial}</td>
-                                        <td className="px-6 py-4">{item.usuarioAtual || 'N/A'}</td>
-                                        <td className="px-6 py-4">{item.local || 'N/A'}</td>
-                                        <td className="px-6 py-4">{item.status || 'N/A'}</td>
+                                        <td className="px-6 py-4">{item.usuarioAtual || 'Não Aplicável'}</td>
+                                        <td className="px-6 py-4">{item.local || 'Não Aplicável'}</td>
+                                        <td className="px-6 py-4">{item.status || 'Não Aplicável'}</td>
                                         <td className="px-6 py-4"><TermoStatusBadge condicao={item.condicaoTermo} /></td>
-                                        <td className="px-6 py-4">{item.grupoPoliticas || 'N/A'}</td>
+                                        <td className="px-6 py-4">{item.grupoPoliticas || 'Não Aplicável'}</td>
                                         <td className="px-6 py-4 text-right">
                                             <ActionButtons item={item} />
                                         </td>
