@@ -54,7 +54,7 @@ const PeriodicUpdate: React.FC<PeriodicUpdateProps> = ({ currentUser, onUpdateSu
             const values = splitCsvLine(row);
             const entry: PartialEquipment = {};
             header.forEach((colName, index) => {
-                const normalizedColName = colName.replace(/[\s/]+/g, '').toUpperCase();
+                const normalizedColName = colName.replace(/[\s\/]+/g, '').toUpperCase();
                 const mappedKey = mappings[normalizedColName] || mappings[colName];
                 if (mappedKey && index < values.length) {
                     (entry as any)[mappedKey] = values[index]?.trim() || '';
